@@ -1,11 +1,19 @@
-exports.question = function(res,res){
-	res.render('quizes/question',{pregunta: 'Capital de Italia'});
+var models = require('../models/models.js');
+
+// GET /quizes/question
+ exports.question = function(res,res){
+ 	models.Quiz.findAll().then(function(quiz){
+	res.render('quizes/question',{pregunta: quiz[0].pregunta});
+	})
 };
 
-exports.answer = function(req,res){
-	if(req.query.respuesta === 'Roma'){
+// GET /quizes/answer
+exports.answer = function(req, res){
+   models.Quiz.findAll().then(function(quiz){
+	if(req.query.respuesta === quiz[0].respuesta){
 		res.render('quizes/answer',{respuesta: 'Correcto'});
 	}else{
 		res.render('quizes/answer',{respuesta: 'Incorrecto'});
 	}
+  });
 };
