@@ -1,5 +1,21 @@
 var models = require('../models/models.js');
 
+/*var express = require('express');
+var app = express();
+var Contador = 0;
+// Middleware Contador aciertos
+app.use(function(req,res,next){
+	app.locals.cont = (app.locals.cont || 0);
+	app.locals.cont += 1;
+	console.log("Aciertos: "+app.locals.cont);
+	next();
+})
+
+app.get('*',function(req,res){
+	res.render("Upss"+"<br>"+"Ha acertado "+app.locals.cont+" veces");
+})
+*/
+
 // GET /quizes/question
  exports.question = function(res,res){
  	models.Quiz.findAll().then(function(quiz){
@@ -11,9 +27,12 @@ var models = require('../models/models.js');
 exports.answer = function(req, res){
    models.Quiz.findAll().then(function(quiz){
 	if(req.query.respuesta === quiz[0].respuesta){
-		res.render('quizes/answer',{respuesta: 'Correcto'});
+		respuesta: 'Roma';
+		quiz[0].aciertos ++;
+		quiz[0].save();
 	}else{
 		res.render('quizes/answer',{respuesta: 'Incorrecto'});
+
 	}
-  });
-};
+  })
+}
