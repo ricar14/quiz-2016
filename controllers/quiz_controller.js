@@ -20,19 +20,23 @@ app.get('*',function(req,res){
  exports.question = function(res,res){
  	models.Quiz.findAll().then(function(quiz){
 	res.render('quizes/question',{pregunta: quiz[0].pregunta});
-	})
+	});
 };
 
 // GET /quizes/answer
 exports.answer = function(req, res){
    models.Quiz.findAll().then(function(quiz){
 	if(req.query.respuesta === quiz[0].respuesta){
-		respuesta: 'Roma';
-		quiz[0].aciertos ++;
-		quiz[0].save();
+		quiz[0].aciertos += 1;
+		quiz[0].save({fields: ['aciertos']}).then(function() {
+		res.render('quizes/answer',{respuesta: 'Correcto'});
+	});
 	}else{
-		res.render('quizes/answer',{respuesta: 'Incorrecto'});
-
-	}
-  })
+		quiz[0].fallo += 1;
+		quiz[0].save({fields: ['fallos']}).then(function() {
+		res.render('quizes/contador',
+		{respuesta: 'Incorrecto',aciertos: quiz[0].aciertos});
+		});
+    }
+   });
 }
