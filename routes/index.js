@@ -6,6 +6,10 @@ var quizController = require('../controllers/quiz_controller');
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Quiz-2016' });
 });
+
+//Autoload de comandos con: quizId
+router.param('quizId',quizController.load); //autoload: quizId
+
 // Definicion de rutas de /quizes
 router.get('/quizes', quizController.index);
 router.get('/quizes/:quizId(\\d+)', quizController.show);
