@@ -1,6 +1,13 @@
 <form method="get" action="/quizes/<%= quiz.id %>/answer">
 
 	Pregunta: <% quiz.pregunta %>
-	 <input type="text" name="respuesta" value="Respuesta"/>
+	 <input type="text" name="respuesta" placeholder="Respuesta"/><br>
+	 <input type="hidden" name="fallos" value="<%=fallos%>" />
+	 	<% if(fallos>=1){ %>
+	 		<% for(var i=0;i<fallos.length;i++){ %>
+	 		//<% %>
+	 	<p id="pista">Pista:<%= quiz.respuesta.charAt(i) %></p>
+	 		<% } %>
+	 	<% } %>
 	 <input type="submit" value="Enviar">
 </form>
