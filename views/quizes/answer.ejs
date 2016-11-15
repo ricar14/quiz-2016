@@ -9,7 +9,11 @@
     <h2>Quiz: el juego de las preguntas</h2>
     <p>
     <%= respuesta %>
-    <a href="/quizes/">Volver</a>
+      <% if(respuesta === 'Incorrecto') { %>
+      <a href="/quizes/<%= quiz.id %>?fallos=<%= incremento %>">Volver a intentarlo</a>
+      <% } else { %>
+    <a href="/quizes/">Volver a las preguntas</a>
+   <% } %>
     </p>
   </body>
 </html>
