@@ -3,12 +3,15 @@ var models = require('../models/models.js');
 
 // Autoload - factoriza el codigo si ruta incluye: quizId
 exports.load = function(req,res,next,quizId){
-	models.Quiz.findById(quizId).then(
+	models.Quiz.findOne({
+			where: {id: Number(quizId) },
+			include: [{model:models.Comment}]
+		}).then(
 		function(quiz){
 			if(quiz){
 				req.quiz = quiz;
 				next();
-			}else {
+			} else {
 				next(new Error('No existe quizId='+quizId));
 			}
 		}).catch(function(error){ 
@@ -17,9 +20,11 @@ exports.load = function(req,res,next,quizId){
 }
 
 // GET /quizes/:id
- exports.show = function(req,res){
-	res.render('quizes/show', {quiz: req.quiz,errors: [],fallos: req.query.fallos});
-};
+ exports.show = function(req, res) {
+
+		res.render('quizes/show', {quiz: req.quiz});
+
+ };
 
 // GET /quizes/:id/answer
 exports.answer = function(req, res){
@@ -90,8 +95,11 @@ exports.update = function(req, res){
 		})
 	}
 
+
+//Borrar comentarios
 exports.destroy = function(req, res){
 	req.quiz.destroy().then(function(){
 		res.redirect('/quizes');
 	}).catch(function(error){next(error)})
 }
+

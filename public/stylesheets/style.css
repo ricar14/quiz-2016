@@ -19,3 +19,22 @@ nav span { margin: 0px 10px 0px 0px;}
 	border-radius: 10px 10px 10px 10px;
 }
 
+#enlacillo {
+	text-decoration: none; 
+}
+
+#botonAnimacion{
+	animation-name: ejemplo; 
+	animation-duration: 0.5s;
+	animation-iteration-count: infinite;
+	width: 100px;
+	height: 100px;
+	position: relative;
+}
+
+@keyframes ejemplo {
+	0% {left: 0px; top: 0px;}
+	50% {left: 0px; top: 100px;}
+	100% {left: 0px; top: 0px;}
+
+}
