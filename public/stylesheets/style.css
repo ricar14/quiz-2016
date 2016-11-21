@@ -23,9 +23,14 @@ nav span { margin: 0px 10px 0px 0px;}
 	text-decoration: none; 
 }
 
+.right {
+	float: right;
+}
+
+/*
 #botonAnimacion{
 	animation-name: ejemplo; 
-	animation-duration: 0.5s;
+	animation-duration: 0.25s;
 	animation-iteration-count: infinite;
 	width: 100px;
 	height: 100px;
@@ -38,3 +43,4 @@ nav span { margin: 0px 10px 0px 0px;}
 	100% {left: 0px; top: 0px;}
 
 }
+*/
