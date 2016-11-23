@@ -3,14 +3,19 @@
      <tr>
      	<td><a href="/quizes/<%= quizes[i].id %>">
      		<%- quizes[i].pregunta %></a></td>
+     	<% if(session.user) { %>
      	<td><a href="/quizes/<%= quizes[i].id %>/edit"><button class="boton">editar</button></a></td>
      	<td>
      		<form method="post" action="/quizes/<%= quizes[i].id %>?_method=delete">
+     		<% if(session.user.username === 'admin') { %>
      		<button class="boton" type="submit" onclick="return confirm('Borrar: <%= quizes[i].pregunta %>');">borrar</button>
+     		<% } %>
      		</form>
      	</td>
-     			
+     <% } %>
      </tr>
-   <% } %>
-  </table>
+     <% } %>
+  </table> 
+  <% if(session.user) { %>
   <a href="/quizes/new"><button class="boton" id="botonAnimacion" type="button">Crear pregunta</button></a>
+  <% } %>
