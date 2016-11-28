@@ -12,7 +12,7 @@ exports.load = function(req,res,next,quizId){
 				req.quiz = quiz;
 				next();
 			} else {
-				next(new Error('No existe quizId='+quizId));
+				next(new Error('No existe quizId=' + quizId));
 			}
 		}).catch(function(error){ 
 			next(error);
@@ -93,7 +93,7 @@ exports.update = function(req, res){
 				.then( function(){ res.redirect('/quizes');});
 			}	//Redireccion HTTP a lista de preguntas(URL relativo)
 		})
-	}
+}
 
 
 //Borrar comentarios
