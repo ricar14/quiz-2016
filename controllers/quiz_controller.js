@@ -21,9 +21,7 @@ exports.load = function(req,res,next,quizId){
 
 // GET /quizes/:id
  exports.show = function(req, res) {
-
-		res.render('quizes/show', {quiz: req.quiz});
-
+	res.render('quizes/show', {quiz: req.quiz});
  };
 
 // GET /quizes/:id/answer
@@ -102,4 +100,5 @@ exports.destroy = function(req, res){
 		res.redirect('/quizes');
 	}).catch(function(error){next(error)})
 }
+
 

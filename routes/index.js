@@ -4,6 +4,8 @@ var router = express.Router();
 var quizController = require('../controllers/quiz_controller');
 var commentController = require('../controllers/comment_controller');
 var sessionController = require('../controllers/session_controller');
+var userController = require('../controllers/user_controller');
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Quiz-2016',errors: [] });
@@ -36,5 +38,9 @@ router.delete('/quizes/:quizId(\\d+)',quizController.destroy);
 
 router.get('/quizes/:quizId(\\d+)/comments/new',commentController.new);
 router.post('/quizes/:quizId(\\d+)/comments',commentController.create);
+
+router.get('/user/newUser', userController.new);
+router.post('/user/newUser', userController.create);
+router.get('/user', userController.index);
 
 module.exports = router;

@@ -1,7 +1,7 @@
 // Definicion del modelo de Usuario
 
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('users',{
+	return sequelize.define('User',{
 	 username: {
 			type: DataTypes.STRING,
 			validate: { notEmpty: {msg: "--> Falta Nombre"}}

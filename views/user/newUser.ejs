@@ -1,0 +1,18 @@
+<h2>New User</h2>
+
+<form method="POST" action="/user/newUser">
+	<div class="field">
+		<label for="login">New UserName:</label><br>
+		<input type="text" id="login" name="user[username]" size="30" />
+	</div>
+
+	<div class="field">
+		<label for="login">New Password:</label><br>
+		<input type="password" id="password" name="user[password]" size="30" />
+	</div>
+
+	<div class="actions">
+		<input type="submit" name="commit" value="Register" />
+	</div>
+
+</form>
