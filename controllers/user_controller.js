@@ -24,11 +24,13 @@ exports.new = function(req,res){
 
 // POST /newUser
 exports.create = function(req,res){
-	var user = models.User.build(req.body.user);
-
+	var userBody = req.body.user;
+	var user = models.User.build(userBody);
 	user.validate().then(function(err){
 			if(err){
 				res.render('user/newUser',{user:user,errors:err.errors});
+			} else if(user.password !=  userBody.password2) {	
+				res.render('user/newUser',{user: user, errors: [{message: 'No coinciden las contraseñas'}]});
 			}else{
 				user //save:guardar en DB campos username y password de user
 				.save({fields:["username","password"]})
@@ -45,3 +47,18 @@ exports.index = function(req, res) {
 		next(error)
 	  })
 }
+
+//Editar usuarios
+exports.edit = function(req,res){
+	var user = req.user; //autoload de instancia de user
+	res.render('user/edit',{User:User,errors:[]});
+}
+
+//Borrar usuarios
+exports.destroy = function(req, res){
+	req.User.destroy().then(function(){
+		res.redirect('/user');
+	}).catch(function(error){next(error)})
+}
+
+
