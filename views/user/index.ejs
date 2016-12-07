@@ -3,10 +3,9 @@
 	<% var i; for (i=0;i < User.length; i++) { %>
 	<tr>
 	<td><%= User[i].username %></td>
-	     	<% if(session.user && session.user.username == 'admin') { %>
+	     	<% if((session.user && session.user.username == 'admin')||(session.user && session.user.username == User[i].username)) { %>
 	     	<td><a href="/user/<%= User[i].id %>/edit"><button class="boton">editar</button></a></td>
 	     	<% } %>
-
 	     		<% if(session.user && session.user.username == 'admin') { %>
 	     	<td>
 	     		<form method="post" action="/user/<%= User[i].id %>?_method=delete">
@@ -15,8 +14,6 @@
 	     		<% } %>
 	     		</form>
 	     	</td>
-	
 	</tr>
 	<% } %>
 </table>
-

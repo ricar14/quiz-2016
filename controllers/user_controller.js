@@ -8,6 +8,8 @@ exports.autenticar = function(login, password, callback) {
 		}).then(function(user){
 		if(user) {
 			callback(null, user);
+		 }else {
+		 	callback(new Error('No existe el usuario o contraseña'));
 		 }
 		}).catch(function(error){
 			callback(new Error('No existe el usuario'));
@@ -15,10 +17,25 @@ exports.autenticar = function(login, password, callback) {
 		
 }
 
+exports.load = function(req,res,next,userId){
+	models.User.findOne({
+			where: {id: Number(userId) }	
+		}).then(
+		function(user){
+			if(user){
+				req.user = user;
+				next();
+			} else {
+				next(new Error('No existe userId='+userId));
+			}
+		}).catch(function(error){ 
+			next(error);
+		  })
+}
+
 // GET /newUser
 exports.new = function(req,res){
-	var user = models.User.build( //crea objeto quiz
-		);
+	var user = models.User.build( {} );//crea objeto quiz
 	res.render('user/newUser',{user:user});
 }
 
@@ -48,15 +65,32 @@ exports.index = function(req, res) {
 	  })
 }
 
+
+exports.update = function(req, res){
+	req.user.username = req.body.user.username;
+	req.user.password = req.body.user.password;
+
+	req.user.validate().then(
+		function(err){
+			if(err){
+				res.render('/user/editUser',{user: req.user, errors: err.errors});
+			}else{
+				req.user // save: guarda campos pregunta y respuesta en DB
+				.save( {fields:["username","password"]})
+				.then( function(){ res.redirect('/user');});
+			}	//Redireccion HTTP a lista de preguntas(URL relativo)
+		})
+	}
+
 //Editar usuarios
 exports.edit = function(req,res){
 	var user = req.user; //autoload de instancia de user
-	res.render('user/edit',{User:User,errors:[]});
+	res.render('user/editUser',{user:user});
 }
 
 //Borrar usuarios
 exports.destroy = function(req, res){
-	req.User.destroy().then(function(){
+	req.user.destroy().then(function(){
 		res.redirect('/user');
 	}).catch(function(error){next(error)})
 }

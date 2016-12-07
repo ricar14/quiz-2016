@@ -13,6 +13,7 @@ router.get('/', function(req, res, next) {
 
 //Autoload de comandos con: quizId
 router.param('quizId',quizController.load); //autoload: quizId
+router.param('userId',userController.load); //autoload: userId
 
 // Definicion de rutas de sesion
 router.get('/login', sessionController.new);   // formulario login
@@ -36,11 +37,13 @@ router.get('/quizes/:quizId(\\d+)/edit',quizController.edit);
 router.put('/quizes/:quizId(\\d+)',quizController.update);
 router.delete('/quizes/:quizId(\\d+)',quizController.destroy);
 
-router.get('/user/:quizId(\\d+)/edit',userController.edit);
-router.delete('/user/:quizId(\\d+)',userController.destroy);
 
 router.get('/quizes/:quizId(\\d+)/comments/new',commentController.new);
 router.post('/quizes/:quizId(\\d+)/comments',commentController.create);
+
+router.get('/user/:userId(\\d+)/edit',userController.edit);
+router.put('/user/:userId(\\d+)',userController.update);
+router.delete('/user/:userId(\\d+)',userController.destroy);
 
 router.get('/user/newUser', userController.new);
 router.post('/user/newUser', userController.create);
